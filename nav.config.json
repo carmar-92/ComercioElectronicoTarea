@@ -14,6 +14,11 @@
       "id": "Productos",
       "nav_url": "index.php?page=HomeController",
       "nav_label":"Productos"
+    },
+    {
+      "id": "Menu_Products",
+      "nav_url": "index.php?page=Products_Products",
+      "nav_label":"<i class=\"fas fa-table\"></i>&nbsp;WW Productos"
     }
   ],
   "private": [
