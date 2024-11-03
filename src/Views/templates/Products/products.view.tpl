@@ -1,85 +1,85 @@
-<h1>Trabajar con Productos</h1>
-<section class="grid">
-  <div class="row">
-    <form class="col-12 col-m-8" action="index.php" method="get">
-      <div class="flex align-center">
-        <div class="col-8 row">
-          <input type="hidden" name="page" value="Products_Products">
-          <label class="col-3" for="partialName">Nombre</label>
-          <input class="col-9" type="text" name="partialName" id="partialName" value="{{partialName}}" />
-          <label class="col-3" for="status">Estado</label>
-          <select class="col-9" name="status" id="status">
-              <option value="EMP" {{status_EMP}}>Todos</option>
-              <option value="ACT" {{status_ACT}}>Activo</option>
-              <option value="INA" {{status_INA}}>Inactivo</option>
-          </select>
-        </div>
-        <div class="col-4 align-end">
-          <button type="submit">Filtrar</button>
-        </div>
+<section class="container-m row px-4 py-4">
+  <h1>{{FormTitle}}</h1>
+</section>
+<section class="container-m row px-4 py-4">
+  {{with product}}
+  <form action="index.php?page=Products_Product&mode={{~mode}}&productId={{productId}}" method="POST" class="col-12 col-m-8 offset-m-2">
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productIdD">Código</label>
+      <input class="col-12 col-m-9" readonly disabled type="text" name="productIdD" id="productIdD" placehoder="Código" value="{{productId}}" />
+      <input type="hidden" name="mode" value="{{~mode}}" />
+      <input type="hidden" name="productId" value="{{productId}}" />
+      <input type="hidden" name="token" value="{{~product_xss_token}}" />
+    </div>
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productName">Producto</label>
+      <input class="col-12 col-m-9" {{~readonly}} type="text" name="productName" id="productName" placehoder="Nombre del Producto" value="{{productName}}" />
+      {{if productName_error}}
+      <div class="col-12 col-m-9 offset-m-3 error">
+        {{productName_error}}
       </div>
-    </form>
-  </div>
+      {{endif productName_error}}
+    </div>
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productDescription">Descripción</label>
+      <teaxtarea class="col-12 col-m-9"  {{~readonly}} name="productDescription" id="productDescription" placehoder="Descripción del Producto">{{productDescription}}</teaxtarea>
+      {{if productDescription_error}}
+      <div class="col-12 col-m-9 offset-m-3 error">
+        {{productDescription_error}}
+      </div>
+      {{endif productDescription_error}}
+    </div>
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productPrice">Precio</label>
+      <input class="col-12 col-m-9" {{~readonly}} type="number" name="productPrice" id="productPrice" placehoder="" value="{{productPrice}}" />
+      {{if productPrice_error}}
+      <div class="col-12 col-m-9 offset-m-3 error">
+        {{productPrice_error}}
+      </div>
+      {{endif productPrice_error}}
+    </div>
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productImgUrl">Url de Imágen (250 x 200)</label>
+      <input class="col-12 col-m-9" {{~readonly}} type="text" name="productImgUrl" id="productImgUrl" placehoder="Nombre del Producto" value="{{productImgUrl}}" />
+      {{if productImgUrl_error}}
+      <div class="col-12 col-m-9 offset-m-3 error">
+        {{productImgUrl_error}}
+      </div>
+      {{endif productImgUrl_error}}
+    </div>
+    <div class="row my-2 align-center">
+      <label class="col-12 col-m-3" for="productStatus">Estado</label>
+      <select name="productStatus" id="productStatus" class="col-12 col-m-9" {{if ~readonly}} readonly disabled {{endif ~readonly}}>
+        <option value="ACT" {{productStatus_act}}>Activo</option>
+        <option value="INA" {{productStatus_ina}}>Inactivo</option>
+      </select>
+    </div>
+    {{endwith product}}
+    <div class="row my-4 align-center flex-end">
+      {{if showCommitBtn}}
+      <button class="primary col-12 col-m-2" type="submit" name="btnConfirmar">Confirmar</button>
+      &nbsp;
+      {{endif showCommitBtn}}
+      <button class="col-12 col-m-2"type="button" id="btnCancelar">
+        {{if showCommitBtn}}
+        Cancelar
+        {{endif showCommitBtn}}
+        {{ifnot showCommitBtn}}
+        Regresar
+        {{endifnot showCommitBtn}}
+      </button>
+    </div>
+    </div>
+  </form>
 </section>
-<section class="WWList">
-  <table>
-    <thead>
-      <tr>
-        <th>
-          {{ifnot OrderByProductId}}
-          <a href="index.php?page=Products_Products&orderBy=productId&orderDescending=0">Id <i class="fas fa-sort"></i></a>
-          {{endifnot OrderByProductId}}
-          {{if OrderProductIdDesc}}
-          <a href="index.php?page=Products_Products&orderBy=clear&orderDescending=0">Id <i class="fas fa-sort-down"></i></a>
-          {{endif OrderProductIdDesc}}
-          {{if OrderProductId}}
-          <a href="index.php?page=Products_Products&orderBy=productId&orderDescending=1">Id <i class="fas fa-sort-up"></i></a>
-          {{endif OrderProductId}}
-        </th>
-        <th class="left">
-          {{ifnot OrderByProductName}}
-          <a href="index.php?page=Products_Products&orderBy=productName&orderDescending=0">Nombre <i class="fas fa-sort"></i></a>
-          {{endifnot OrderByProductName}}
-          {{if OrderProductNameDesc}}
-          <a href="index.php?page=Products_Products&orderBy=clear&orderDescending=0">Nombre <i class="fas fa-sort-down"></i></a>
-          {{endif OrderProductNameDesc}}
-          {{if OrderProductName}}
-          <a href="index.php?page=Products_Products&orderBy=productName&orderDescending=1">Nombre <i class="fas fa-sort-up"></i></a>
-          {{endif OrderProductName}}
-        </th>
-        <th>
-          {{ifnot OrderByProductPrice}}
-          <a href="index.php?page=Products_Products&orderBy=productPrice&orderDescending=0">Precio <i class="fas fa-sort"></i></a>
-          {{endifnot OrderByProductPrice}}
-          {{if OrderProductPriceDesc}}
-          <a href="index.php?page=Products_Products&orderBy=clear&orderDescending=0">Precio <i class="fas fa-sort-down"></i></a>
-          {{endif OrderProductPriceDesc}}
-          {{if OrderProductPrice}}
-          <a href="index.php?page=Products_Products&orderBy=productPrice&orderDescending=1">Precio <i class="fas fa-sort-up"></i></a>
-          {{endif OrderProductPrice}}
-        </th>
-        <th>Estado</th>
-        <th><a href="index.php?page=Products-Product&mode=INS">Nuevo</a></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{foreach products}}
-      <tr>
-        <td>{{productId}}</td>
-        <td> <a class="link" href="index.php?page=Products-Product&mode=DSP&id={{productId}}">{{productDescription}}</a>
-        </td>
-        <td class="right">
-          {{productPrice}}
-        </td>
-        <td class="center">{{productStatusDsc}}</td>
-        <td class="center">
-          <a href="index.php?page=Products-Product&mode=UPD&id={{productId}}">Editar</a>
-          &nbsp;
-          <a href="index.php?page=Products-Product&mode=DEL&id={{productId}}">Eliminar</a>
-        </td>
-      </tr>
-      {{endfor products}}
-    </tbody>
-  </table>
-  {{pagination}}
-</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const btnCancelar = document.getElementById("btnCancelar");
+    btnCancelar.addEventListener("click", (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.assign("index.php?page=Products_Products");
+    });
+  });
+</script>
