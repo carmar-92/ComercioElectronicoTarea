@@ -3,7 +3,7 @@
 </section>
 <section class="container-m row px-4 py-4">
   {{with product}}
-  <form action="index.php?page=Products_Product&mode={{~mode}}&productId={{productId}}" method="POST" class="col-12 col-m-8 offset-m-2">
+  <form action="index.php?page=Products_Products&mode={{~mode}}&productId={{productId}}" method="POST" class="col-12 col-m-8 offset-m-2">
     <div class="row my-2 align-center">
       <label class="col-12 col-m-3" for="productIdD">Código</label>
       <input class="col-12 col-m-9" readonly disabled type="text" name="productIdD" id="productIdD" placehoder="Código" value="{{productId}}" />
@@ -22,7 +22,7 @@
     </div>
     <div class="row my-2 align-center">
       <label class="col-12 col-m-3" for="productDescription">Descripción</label>
-      <teaxtarea class="col-12 col-m-9"  {{~readonly}} name="productDescription" id="productDescription" placehoder="Descripción del Producto">{{productDescription}}</teaxtarea>
+      <textarea class="col-12 col-m-9"  {{~readonly}} name="productDescription" id="productDescription" placehoder="Descripción del Producto">{{productDescription}}</textarea>
       {{if productDescription_error}}
       <div class="col-12 col-m-9 offset-m-3 error">
         {{productDescription_error}}

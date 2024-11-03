@@ -80,11 +80,14 @@ class  Products extends Table
 
   public static function getProductById(int $productId)
   {
-    $sqlstr = "SELECT p.productId, p.productName, p.productDescription, p.productPrice, p.productImgUrl, p.productStatus FROM products p WHERE p.productId = :productId";
-    $params = ["productId" => $productId];
-    return self::obtenerUnRegistro($sqlstr, $params);
+      $sqlstr = "SELECT p.productId, p.productName, p.productDescription, p.productPrice, p.productImgUrl, p.productStatus FROM products p WHERE p.productId = :productId";
+      $params = ["productId" => $productId];
+      $product = self::obtenerUnRegistro($sqlstr, $params);
+  
+      // Asegurarse de que devuelva null si no se encuentra el producto
+      return $product ?: null;
   }
-
+  
   public static function insertProduct(
     string $productName,
     string $productDescription,
@@ -130,3 +133,4 @@ class  Products extends Table
     return self::executeNonQuery($sqlstr, $params);
   }
 }
+
